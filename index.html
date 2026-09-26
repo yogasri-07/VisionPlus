@@ -1,0 +1,865 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>VisionPlus | Explainable AI for Diabetic Retinopathy Screening</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #071827;
+            color: #ffffff;
+            line-height: 1.6;
+        }
+
+        /* HERO */
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 20px;
+            background:
+                radial-gradient(circle at 85% 15%, #0b7285 0%, transparent 32%),
+                radial-gradient(circle at 10% 85%, #12395b 0%, transparent 38%),
+                #071827;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 8px 18px;
+            border: 1px solid #28d7c4;
+            border-radius: 30px;
+            color: #28d7c4;
+            font-size: 14px;
+            margin-bottom: 25px;
+            letter-spacing: 0.5px;
+        }
+
+        h1 {
+            font-size: 68px;
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 28px;
+            color: #b9d7e5;
+            max-width: 900px;
+            margin-bottom: 25px;
+        }
+
+        .description {
+            font-size: 18px;
+            color: #d5e4eb;
+            max-width: 850px;
+            margin-bottom: 35px;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 14px 26px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: bold;
+            background: #20c9b8;
+            color: #04131e;
+            transition: 0.3s;
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+            opacity: 0.9;
+        }
+
+        .button.secondary {
+            background: transparent;
+            color: #ffffff;
+            border: 1px solid #426477;
+        }
+
+        /* SECTIONS */
+
+        .section {
+            padding: 80px 20px;
+            background: #0a2030;
+        }
+
+        .section.alt {
+            background: #071827;
+        }
+
+        h2 {
+            font-size: 38px;
+            margin-bottom: 15px;
+        }
+
+        .section-intro {
+            color: #b9d7e5;
+            max-width: 800px;
+            font-size: 17px;
+        }
+
+        /* CARDS */
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 22px;
+            margin-top: 40px;
+        }
+
+        .card {
+            background: #102c3e;
+            border: 1px solid #23495e;
+            border-radius: 16px;
+            padding: 28px;
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            border-color: #28d7c4;
+        }
+
+        .card h3 {
+            color: #28d7c4;
+            margin-bottom: 12px;
+            font-size: 20px;
+        }
+
+        .card p {
+            color: #d5e4eb;
+            font-size: 15px;
+        }
+
+        /* WORKFLOW */
+
+        .workflow {
+            margin-top: 40px;
+            padding: 28px;
+            background: #071827;
+            border-radius: 16px;
+            border: 1px solid #23495e;
+            text-align: center;
+            color: #ffffff;
+            font-size: 18px;
+            overflow-x: auto;
+        }
+
+        .workflow span {
+            color: #28d7c4;
+            font-weight: bold;
+        }
+
+        /* TECHNOLOGY */
+
+        .tech-list {
+            margin-top: 35px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .tech {
+            background: #102c3e;
+            padding: 24px;
+            border-radius: 14px;
+            border: 1px solid #23495e;
+        }
+
+        .tech strong {
+            color: #28d7c4;
+            display: block;
+            font-size: 20px;
+            margin-bottom: 7px;
+        }
+
+        /* TABLE */
+
+        .table-wrapper {
+            overflow-x: auto;
+            margin-top: 35px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #102c3e;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        th,
+        td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #23495e;
+        }
+
+        th {
+            color: #28d7c4;
+            background: #0d2637;
+        }
+
+        td {
+            color: #d5e4eb;
+        }
+
+        /* DISCLAIMER */
+
+        .disclaimer {
+            margin-top: 40px;
+            padding: 22px;
+            border-left: 4px solid #28d7c4;
+            background: #102c3e;
+            color: #c7d9e2;
+            border-radius: 8px;
+        }
+
+        /* DEMO */
+
+        .demo-box {
+            margin-top: 40px;
+            padding: 35px;
+            background: #102c3e;
+            border: 1px solid #23495e;
+            border-radius: 18px;
+            text-align: center;
+        }
+
+        .demo-box h3 {
+            color: #28d7c4;
+            font-size: 25px;
+            margin-bottom: 12px;
+        }
+
+        .demo-box p {
+            color: #d5e4eb;
+            margin-bottom: 25px;
+        }
+
+        /* FOOTER */
+
+        footer {
+            text-align: center;
+            padding: 35px 20px;
+            background: #05121d;
+            color: #8faab8;
+        }
+
+        footer strong {
+            color: #28d7c4;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 700px) {
+
+            h1 {
+                font-size: 44px;
+            }
+
+            .subtitle {
+                font-size: 21px;
+            }
+
+            .description {
+                font-size: 16px;
+            }
+
+            h2 {
+                font-size: 30px;
+            }
+
+            .workflow {
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+        <div class="container">
+
+            <div class="badge">
+                SIH 26038 • MedTech / BioTech / HealthTech
+            </div>
+
+            <h1>VISIONPLUS</h1>
+
+            <div class="subtitle">
+                Explainable AI for Diabetic Retinopathy Screening
+            </div>
+
+            <p class="description">
+                VisionPlus is an AI-assisted retinal screening application
+                designed to support diabetic retinopathy assessment from
+                retinal fundus images. It combines image-quality assessment,
+                deep-learning-based DR grading, retinal vessel analysis,
+                and Grad-CAM explainability.
+            </p>
+
+            <div class="buttons">
+
+                <a class="button" href="#demo">
+                    View Demo
+                </a>
+
+                <a class="button secondary" href="#technology">
+                    Explore Technology
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- DEMO -->
+
+    <section class="section" id="demo">
+
+        <div class="container">
+
+            <h2>VisionPlus Demonstration</h2>
+
+            <p class="section-intro">
+                The deployed VisionPlus application provides an end-to-end
+                screening workflow for retinal fundus images.
+            </p>
+
+            <div class="demo-box">
+
+                <h3>🩺 VisionPlus Standalone Application</h3>
+
+                <p>
+                    The complete VisionPlus user interface is deployed as
+                    a Windows standalone application using MATLAB Runtime.
+                </p>
+
+                <a class="button" href="#workflow">
+                    View Screening Workflow
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- FEATURES -->
+
+    <section class="section alt">
+
+        <div class="container">
+
+            <h2>Key Features</h2>
+
+            <div class="grid">
+
+                <div class="card">
+
+                    <h3>Image Quality Assessment</h3>
+
+                    <p>
+                        Evaluates focus, illumination, field of view,
+                        and overall image quality before screening.
+                    </p>
+
+                </div>
+
+
+                <div class="card">
+
+                    <h3>DR Grading</h3>
+
+                    <p>
+                        Performs five-class diabetic retinopathy grading
+                        from Grade 0 to Grade 4 using deep learning.
+                    </p>
+
+                </div>
+
+
+                <div class="card">
+
+                    <h3>Grad-CAM Explainability</h3>
+
+                    <p>
+                        Generates visual explanations showing regions
+                        contributing to the model prediction.
+                    </p>
+
+                </div>
+
+
+                <div class="card">
+
+                    <h3>Retinal Vessel Analysis</h3>
+
+                    <p>
+                        Uses U-Net-based segmentation for retinal vessel
+                        analysis and supporting image interpretation.
+                    </p>
+
+                </div>
+
+
+                <div class="card">
+
+                    <h3>Screening Report</h3>
+
+                    <p>
+                        Provides structured screening results including
+                        quality, grade, confidence, referral indication,
+                        and recommendations.
+                    </p>
+
+                </div>
+
+
+                <div class="card">
+
+                    <h3>Rural Screening Support</h3>
+
+                    <p>
+                        Designed with resource-constrained and community
+                        screening environments in mind.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- WORKFLOW -->
+
+    <section class="section" id="workflow">
+
+        <div class="container">
+
+            <h2>System Workflow</h2>
+
+            <p class="section-intro">
+                VisionPlus follows an explainable AI screening pipeline
+                from retinal image acquisition to screening report.
+            </p>
+
+            <div class="workflow">
+
+                <span>Fundus Image</span>
+                →
+                <span>Quality Assessment</span>
+                →
+                <span>Preprocessing</span>
+                →
+                <span>DR Grading</span>
+                →
+                <span>Grad-CAM</span>
+                →
+                <span>Screening Report</span>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- TECHNOLOGY -->
+
+    <section class="section alt" id="technology">
+
+        <div class="container">
+
+            <h2>AI & Technology</h2>
+
+            <div class="tech-list">
+
+                <div class="tech">
+
+                    <strong>ResNet18</strong>
+
+                    <p>
+                        Deep-learning model used for five-class diabetic
+                        retinopathy classification.
+                    </p>
+
+                </div>
+
+
+                <div class="tech">
+
+                    <strong>U-Net</strong>
+
+                    <p>
+                        Segmentation architecture used for retinal vessel
+                        analysis.
+                    </p>
+
+                </div>
+
+
+                <div class="tech">
+
+                    <strong>Grad-CAM</strong>
+
+                    <p>
+                        Explainable AI method used to visualize regions
+                        influencing the model prediction.
+                    </p>
+
+                </div>
+
+
+                <div class="tech">
+
+                    <strong>MATLAB</strong>
+
+                    <p>
+                        Development and deployment environment used for
+                        the VisionPlus application.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- DR GRADING -->
+
+    <section class="section">
+
+        <div class="container">
+
+            <h2>Diabetic Retinopathy Grading</h2>
+
+            <p class="section-intro">
+                VisionPlus uses a five-grade classification workflow.
+            </p>
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+                            <th>Grade</th>
+                            <th>Description</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        <tr>
+                            <td>0</td>
+                            <td>No DR</td>
+                        </tr>
+
+                        <tr>
+                            <td>1</td>
+                            <td>Mild DR</td>
+                        </tr>
+
+                        <tr>
+                            <td>2</td>
+                            <td>Moderate DR</td>
+                        </tr>
+
+                        <tr>
+                            <td>3</td>
+                            <td>Severe DR</td>
+                        </tr>
+
+                        <tr>
+                            <td>4</td>
+                            <td>Proliferative DR</td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- DATASETS -->
+
+    <section class="section alt">
+
+        <div class="container">
+
+            <h2>Datasets</h2>
+
+            <p class="section-intro">
+                The development workflow uses publicly available retinal
+                imaging datasets for classification and segmentation tasks.
+            </p>
+
+            <div class="grid">
+
+                <div class="card">
+                    <h3>APTOS 2019</h3>
+                    <p>
+                        Used for diabetic retinopathy classification.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <h3>IDRiD</h3>
+                    <p>
+                        Used for retinal lesion and segmentation-related
+                        development.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <h3>DRIVE</h3>
+                    <p>
+                        Used for retinal vessel segmentation development.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <h3>Messidor-2</h3>
+                    <p>
+                        Included in the development and evaluation workflow.
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- RURAL HEALTHCARE -->
+
+    <section class="section">
+
+        <div class="container">
+
+            <h2>Rural Healthcare Vision</h2>
+
+            <p class="section-intro">
+                VisionPlus is designed around a potential resource-conscious
+                screening scenario.
+            </p>
+
+            <div class="workflow">
+
+                <span>Portable Fundus Camera</span>
+                →
+                <span>Laptop / Tablet</span>
+                →
+                <span>VisionPlus</span>
+                →
+                <span>AI Screening</span>
+                →
+                <span>Explainable Result</span>
+                →
+                <span>Referral Support</span>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- DEPLOYMENT -->
+
+    <section class="section alt">
+
+        <div class="container">
+
+            <h2>Application Deployment</h2>
+
+            <div class="grid">
+
+                <div class="card">
+                    <h3>Application</h3>
+                    <p>VisionPlus</p>
+                </div>
+
+                <div class="card">
+                    <h3>Version</h3>
+                    <p>1.0.0</p>
+                </div>
+
+                <div class="card">
+                    <h3>Platform</h3>
+                    <p>Windows 64-bit</p>
+                </div>
+
+                <div class="card">
+                    <h3>Deployment</h3>
+                    <p>MATLAB Standalone Application</p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- FUTURE -->
+
+    <section class="section">
+
+        <div class="container">
+
+            <h2>Future Enhancements</h2>
+
+            <div class="grid">
+
+                <div class="card">
+                    <h3>Fundus Camera Integration</h3>
+                    <p>
+                        Direct image acquisition from compatible
+                        fundus-camera devices.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <h3>Mobile & Tablet Support</h3>
+                    <p>
+                        Adaptation for field-based screening devices.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <h3>Additional Lesion Segmentation</h3>
+                    <p>
+                        Expansion of lesion-level analysis capabilities.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <h3>Multilingual Reporting</h3>
+                    <p>
+                        Support for multilingual screening reports
+                        for diverse healthcare environments.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <h3>Secure Cloud Deployment</h3>
+                    <p>
+                        Future cloud infrastructure for controlled
+                        healthcare workflows.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <h3>Clinical Referral Integration</h3>
+                    <p>
+                        Integration with structured referral workflows.
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- DISCLAIMER -->
+
+    <section class="section alt">
+
+        <div class="container">
+
+            <h2>Important Disclaimer</h2>
+
+            <div class="disclaimer">
+
+                <strong>Prototype Screening Support:</strong>
+
+                VisionPlus is a prototype research and screening-support
+                application. AI-generated results are not a medical
+                diagnosis and should not be used as the sole basis for
+                clinical decisions.
+
+                <br><br>
+
+                Clinical decisions must be made by qualified healthcare
+                professionals.
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <p>
+            <strong>VisionPlus</strong>
+            • VisionPulse Team
+            • SIH Problem Statement 26038
+        </p>
+
+        <p>
+            Explainable AI for Diabetic Retinopathy Screening
+        </p>
+
+    </footer>
+
+</body>
+</html>
+```
